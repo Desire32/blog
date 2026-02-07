@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="../css/global.css" />
+    <link rel="stylesheet" type="text/css" href="../css/addit.css" />
+    <link rel="stylesheet" type="text/css" href="../css/tags.css" />
+  </head>
+  <body>
+
+    <header class="header-main">
+      <div class="header-inner">
+        <div class="header-main-logo">
+          <div class="header-main-name"></div>
+        </div>
+        <nav class="header-main-nav" aria-label="Главная навигация">
+          <ul class="logoList">
+            <li><a href="../index.html">Main</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+
+        <article class="post">
+          <header class="post-header">
+            <h1 class="post-title">Second research paper :: Extended explanation of the qLORA structure</h1>
+            <div class="tag-widget" aria-label="Keywords">
+              <ul class="tag-list" role="list">
+                <li><a class="tag">peft</a></li>
+                <li><a class="tag">rag</a></li>
+                <li><a class="tag">torch</a></li>
+                <li><a class="tag">nlp</a></li>
+              </ul>
+            </div>
+          </header>
+
+          <div class="post-content">
+            <section class="post-section intro">
+              <!-- Download research paper -->
+              <section class="info-card" aria-labelledby="paper-title">
+                <div class="info-card-header">
+                  <h2 id="paper-title" class="info-card-title" style="font-size: 12px;">Full version: extended explanation of the QLoRA structure, experiments with SLMs, and cultural heritage dataset fine-tuning.</h2>
+                  <a href="../papers/second-research-paper.pdf" download>
+                    Download PDF
+                  </a>
+                </div>
+               
+              </section>
+
+              <section class="post-section intro">
+              <!-- Download research paper -->
+              <section class="info-card" aria-labelledby="paper-title">
+                <div class="info-card-header">
+                  <h2 id="paper-title" class="info-card-title" style="font-size: 12px;">Github Representation</h2>
+                  <a href="https://github.com/Desire32/lora-ml-transfomers">
+                    Link
+                  </a>
+                </div>
+               
+              </section>
+              
+              <p>In the first research paper we delivered a prototype of a CPSS-driven system. It demonstrated how the physical, digital, and social layers could be connected into a single interactive framework.</p>
+
+              <p>This second study shifts the focus to the GenAI component of that system — the Large Language Model. Here the challenges revolve around prompt engineering and fine-tuning strategies that determine how reliably the model behaves in real use cases.</p>
+
+              <p>Our aim is to evaluate and compare two versions of the Mistral-7B model. <strong>[Why Mistral 7B? Elaborate]</strong></p>
+
+              <p>The baseline setup follows a RAG pipeline with Upstash Redis, while the alternative approach applies LoRA fine-tuning on Mistral-7B using domain-specific cultural heritage data. This comparison highlights the trade-offs between retrieval-augmented methods and parameter-efficient fine-tuning.</p>
+
+              <p>Our goal was to see how much fine-tuning improves performance across five criteria:</p>
+              <ul>
+                <li>Factual accuracy</li>
+                <li>Contextual relevance</li>
+                <li>Safety</li>
+                <li>Human alignment</li>
+                <li>Formatting quality</li>
+              </ul>
+            </section>
+
+            <section class="post-section my-road">
+              <h2>Observations</h2>
+              <p>This project was a continuation of my first research adventure — only this time we moved away from the RAG approach and dove deep into fine-tuning with QLoRA. We also wanted human feedback to play a role in evaluating the results.</p>
+
+              <!-- RAG note -->
+              <section class="info-card" aria-labelledby="rag-title">
+                <div class="info-card-header">
+                  <h3 id="rag-title" class="info-card-title">What is RAG?</h3>
+                </div>
+                <p class="info-card-text">
+                  Retrieval-Augmented Generation (RAG) retrieves relevant external documents during inference and feeds them to the model, grounding answers in real data to improve factual accuracy and reduce hallucinations.
+                </p>
+              </section>
+
+              <p>Why small models? Our aim was to work with SLMs (Small Language Models) for easy deployment in production, minimal infrastructure requirements, and the ability to run them in VR environments without heavy backend dependencies.</p>
+
+              <!-- SLM note -->
+              <section class="info-card" aria-labelledby="slm-title">
+                <div class="info-card-header">
+                  <h3 id="slm-title" class="info-card-title">What is an SLM?</h3>
+                </div>
+                <p class="info-card-text">
+                  Small Language Models (SLMs) are compact LLMs with fewer parameters, making them cheaper and faster to deploy. In short — lightweight assistants able to handle domain-specific conversations without a heavy external knowledge pipeline.
+                </p>
+              </section>
+
+              <p>Machine learning is my kind of playground — a purely applied field where building a working model means breaking a dozen others along the way, spending hours troubleshooting, and learning why certain optimizers work better, how to speed things up, and why the learning rate can make or break your model. This project was my crash course in all of that.</p>
+
+              <h3>LoRA (base and final)</h3>
+              <img class="post-image image-fixed" src="../notes/second/images/lora_schema.png" alt="LoRA Architecture Wireframe">
+              <p>Our LoRA setup was split into two main classes, working together like an assembly line:</p>
+
+                <!-- LoRA note -->
+                <section class="info-card" aria-labelledby="lora-title">
+                  <div class="info-card-header">
+                    <h3 id="lora-title" class="info-card-title">What is LoRA?</h3>
+                  </div>
+                  <p class="info-card-text">
+                    Low-Rank Adaptation (LoRA) fine-tunes large models efficiently by training small, low-rank adapter matrices injected into attention/MLP layers (e.g., <code>q_proj</code>, <code>v_proj</code>). Instead of updating all model weights, only adapters are learned, which makes training faster and more memory-efficient.
+                  </p>
+                </section>
+
+                <!-- QLoRA vs LoRA note -->
+                <section class="info-card" aria-labelledby="qlora-title">
+                  <div class="info-card-header">
+                    <h3 id="qlora-title" class="info-card-title">QLoRA vs LoRA (with bitsandbytes)</h3>
+                  </div>
+                  <p class="info-card-text">
+                    QLoRA combines LoRA with k-bit quantization of the base model via <em>bitsandbytes</em> (e.g., 8-bit or 4-bit). The base model is loaded in a compressed format to reduce VRAM usage, while the small LoRA adapters are trained in higher precision. In our pipeline we used <strong>bitsandbytes</strong> configuration to load the model in 8-bit (k-bit) and trained rank-8 adapters targeting <code>q_proj</code> and <code>v_proj</code>, with <code>alpha=42</code> and <code>dropout=0.05</code>. Compared to classic LoRA, QLoRA keeps memory even tighter, enabling fine-tuning of larger models on modest GPUs with minimal quality loss.
+                  </p>
+                </section>
+              </ul>
+
+              <p>We tested different candidates — TinyLlama, Mistral, Phi, and LLaMA — and found the last three worked best for our needs. TinyLlama was our guinea pig for quick pipeline validation thanks to its small parameter count.</p>
+
+              <!-- Hugging Face note -->
+              <section class="info-card" aria-labelledby="hf-title">
+                <p class="info-card-text">
+                  All base checkpoints (TinyLlama, Mistral, Phi, LLaMA) and many datasets/utilities were sourced from <strong>Hugging Face</strong> — an open platform and community hub for sharing ML models, datasets, and training code. It provides model hubs, versioned artifacts, <code>transformers</code> integration, and tooling that made it easy to download, compare, and fine-tune models in a reproducible way.
+                </p>
+              </section>
+
+            </section>
+
+            <section class="post-section end">
+              <h2>RAG (base + final)</h2>
+              <img class="post-image image-fixed" style="height: 620px;" src="../notes/second/images/rag_final_schema.png" alt="Fine-tuned model evaluation results">
+              <p>I did make an attempt to write a custom RAG pipeline using cosine similarity, but we scrapped that idea — we had less than a month for the entire project.</p>
+            </section>
+
+            <section class="post-section end">
+              <h2>Statistics and analysis</h2>
+              <img class="post-image image-fixed" src="../notes/second/images/eval_final.png" alt="Fine-tuned model evaluation results">
+            </section>
+
+ 
+          </div>
+
+        </article>
+      </div>
+    </main>
+
+    <footer id="footer">
+      <div class="foot-inner">
+        <div>Email: <a href="mailto:nikitamarkov.work@gmail.com" style="color:var(--accent)">nikitamarkov.work@gmail.com</a></div>
+      </div>
+    </footer>
+  </body>
+</html>

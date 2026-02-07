@@ -1,0 +1,75 @@
+:root{
+  --bg:#e9e4d4;      /* фон страницы (светлый беж) */
+  --panel:#dcd4c3;   /* панели/карточки (средний беж) */
+  --muted:#7c7264;   /* приглушённый текст */
+  --text:#2f2b25;    /* основной текст (тёмно-коричневый) */
+  --accent:#b68b4c;  /* акцент (теплый золотисто-медовый) */
+  --border:#cfc7b7;  /* границы (светло-бежевые) */
+  --radius:16px;
+  --shadow:0 6px 24px rgba(0,0,0,.1);
+}
+
+
+
+html,body{height:100%}
+body{
+  margin:0;
+  /* background:linear-gradient(180deg,#ece6d8,#e9e4d4 18%); */
+  color:var(--text);
+  /* font:500 16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; */
+  font:500 16px/1.55 'Latin Modern Roman', sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* контейнер-обёртка, общая */
+.container{ max-width:1100px; margin:0 auto; padding:0 20px; }
+
+/* ===== шапка (общая) ===== */
+.header-main{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(140%) blur(8px);
+  /* background:rgba(133, 225, 182, 0.6); */
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:1100px; margin:0 auto; padding:5px 5px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.header-main-logo .header-main-name{
+  font-weight:700; letter-spacing:.2px;
+}
+.header-main-nav ul{
+  list-style:none; padding:0; margin:0; display:flex; gap:14px;
+}
+.header-main-nav a{
+  color:var(--text); text-decoration:none;
+  padding:8px 12px; border:1px solid transparent; border-radius:999px;
+}
+.header-main-nav a:hover{ border-color:var(--border); background:#f2eee3; }
+
+/* ===== кнопки, теги (общие) ===== */
+.btn{
+  appearance:none; border:1px solid var(--border); 
+  color:var(--text); padding:8px 12px; border-radius:0px; text-decoration:none;
+  transition:.15s ease-in-out; display:inline-flex; align-items:center; gap:8px;
+}
+.btn:hover{ transform:translateY(-1px); border-color:#2a3145; background:#21283a; }
+.btn--accent{ border-color:#2a4370; background:#203255; }
+.btn--accent:hover{ background:#223a65; }
+
+.tag{
+  font-size:12px; color:#cfd6e6; background:#1a2030; border:1px solid var(--border);
+  padding:4px 8px; border-radius:999px;
+}
+
+/* ===== футер (общий) ===== */
+#footer{ border-top:1px dashed var(--border); }
+#footer .foot-inner{
+  max-width:1100px; margin:0 auto; padding:15px 10px 15px;
+  color:var(--muted); display:flex; justify-content:space-between;
+}
+
+/* ===== адаптив общие штрихи ===== */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none!important; animation-duration:0.01ms!important; animation-iteration-count:1!important; }
+}

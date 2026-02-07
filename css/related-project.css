@@ -1,0 +1,26 @@
+.related-project {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start; /* можно center или flex-end */
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--accent, #6c5ce7);
+  color: var(--accent, #6c5ce7);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .15s ease, color .15s ease, transform .12s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--accent, #6c5ce7);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}

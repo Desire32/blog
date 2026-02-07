@@ -1,0 +1,56 @@
+/* Tag widget (square chips like [peft] [transformers] [nlp]) */
+.tag-widget {
+  margin-top: 12px;
+}
+
+.post-header .tag-widget {
+  margin-top: 10px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tag {
+  /* square-ish chip */
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 0px;            /* square corners (not pills) */
+  border: 1px solid;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: transform .12s ease, background-color .12s ease, border-color .12s ease, color .12s ease;
+  /* bracket vibe */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* theme colors (fall back if CSS vars absent) */
+  --tag-bg: color-mix(in oklab, var(--bg, #0b0b0b) 92%, #ffffff 8%);
+  --tag-border: color-mix(in oklab, var(--accent, #6c5ce7) 35%, transparent);
+  --tag-text: color-mix(in oklab, #ffffff 92%, var(--accent, #6c5ce7) 8%);
+
+  /* background: var(--tag-bg); */
+  border-color: var(--tag-border);
+  color: var(--tag-text);
+}
+
+.tag:hover,
+.tag:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+  background: color-mix(in oklab, var(--accent, #6c5ce7) 12%, var(--tag-bg));
+  border-color: color-mix(in oklab, var(--accent, #6c5ce7) 55%, transparent);
+  color: #fff;
+}
+
+.tag:active {
+  transform: translateY(0);
+}

@@ -1,0 +1,57 @@
+/* только для главной */
+
+main{ padding-bottom:60px; }
+
+/* hero */
+.hero{ padding:38px 0 10px; }
+.hero h1{
+  margin:0 0 6px;
+  font-size:36px; line-height:1.2; font-weight:800; letter-spacing:.2px;
+}
+.hero p{ margin:0; color:var(--muted); }
+
+/* список постов */
+.content{ padding:24px 0; }
+.posts{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:18px;
+}
+
+/* карточка поста */
+.post-card{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+  display:flex; flex-direction:column; gap:10px;
+  min-height:160px;
+}
+.post-title{
+  margin:0; font-size:18px; line-height:1.35; font-weight:700;
+}
+.post-meta{
+  margin:0; font-size:13px; color:var(--muted);
+}
+.post-readmore{
+  margin-top:auto; align-self:flex-start;
+  color:var(--text); text-decoration:none;
+  border:1px solid var(--border);
+  background:#f2eee3; /* светлый фон кнопки */
+  padding:8px 12px; border-radius:10px; transition:.15s ease-in-out;
+}
+.post-readmore:hover{
+  transform:translateY(-1px);
+  border-color:var(--accent);
+  background:var(--accent);
+  color:#fff;
+}
+
+/* адаптив главной */
+@media (max-width: 1024px){
+  .posts{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px){
+  .posts{ grid-template-columns: 1fr; }
+  .hero h1{ font-size:28px; }
+}

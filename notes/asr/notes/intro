@@ -1,0 +1,39 @@
+Intro
+
+In this post, I’ll try to walk you through — in as much detail as possible — the product we built as a team in our startup, Abasis AI.
+
+Special thanks goes to RIF, who gave us the opportunity to join their program and gain unforgettable experience.
+
+Our team was small but focused:
+
+Nikita Markov (me) — responsible for building the ASR model, qwe
+
+Hussein Khadra — responsible for the platform,
+
+Igor Akimov — the originator of the idea.
+
+The Idea
+
+So, what was this project actually about? Oh boy, there’s a lot to tell.
+
+The general idea was to create a Cypriot audio platform — basically a system built on chunks of recorded Cypriot Greek dialect. Users could visit the website and voluntarily help us transcribe this data.
+
+Why? Because as I mentioned in the title, we were pioneers: there were no ASR models or datasets available for Cypriot dialects. Our goal was to empower the community and crowdsource dataset creation.
+
+This was crucial, because our biggest problem was simple: there were no clean, usable datasets to train an ASR model. With the support of people, we wanted to create them ourselves.
+
+ASR Model Vision
+
+When it came to the ASR model itself, the initial idea was to create a commercial system for the parliament, capable of listening to Cypriot Greek and producing transcripts in real time.
+
+There was also a second commercial plan: a Cypriot voice-based auto-responder for restaurants. The vision was that customers could order food at home — without speaking to a human. (Yes, the introvert’s dream!)
+
+Timeline & Effort
+
+The project was short but intense. We had:
+
+6 weeks total,
+
+roughly 40 working days,
+
+and on my side of the table, about 190 hours of hands-on work.

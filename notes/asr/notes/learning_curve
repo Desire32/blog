@@ -1,0 +1,35 @@
+начать стоит с того, что когда я получил эту стажировку я понятия не имел что такое asr системы и что они из себя представляют, максимальный беграунд который я имел у себя за спиной так это работа с nlp.
+в первые недели я не знал что такое даже wer,cer, а к концу последней недели презентовал полноценную asr модель натренированную на данных, которые я очистил и отсортировал, на добавлении в конструкцию kenlm, и выдача результата схожая с elevenlabs, но бесплатно. а в процессе пока не нактнулся на kenlm успел построить mlm, обученную на кипрском словаре. заинтриговал? сейчас расскажу
+
+week 1:
+- Learned the basics of Automatic Speech Recognition (ASR).
+* Got acquainted with speech recognition quality metrics:
+* jiwer, wer (word error rate), cer (character error rate)
+* Implemented a universal pipeline for testing various ASR models, including:
+* Whisper (faster-whisper), HuggingFace (Wav2Vec2), DeepGram, ElevenLabs, AssemblyAI, Speechmatics, Azure OpenAI, Google Cloud Speech-to-Text, Google Gemini.
+* Integrated mlflow to track experiments:
+* Raised mlflow UI using ngrok for ease of analysis.
+* Conducted an analysis of the results on the first 10 examples from the dataset, compared the quality and speed of different models.#
+
+
+week 2:
+- Text-based Cyprus Dictionary with Greek Translation Support
+ Built comprehensive bidirectional dictionary leveraging ZiartisNikolas/NMT-cypriot-dialect-to-greek model
+ for accurate Cyprus ↔ Greek translations with batch processing capabilities and text normalization pipeline, train/validation/test splits (80/10/10)
+
+- Audio-based Cyprus Dictionary with Transcribed Speech Dataset
+ Created production-ready 4.4GB dataset containing 17,080+ transcribed speech segments from ±20 hours of Cyprus dialect audio, with train/validation/test splits (80/10/10)
+
+- Fine-tuning Pipeline Infrastructure for Model Training
+ Established end-to-end framework with automated data preprocessing
+
+
+ week 3:
+ - Trained specialized MLM BERT model based on cypriot dictionary dataset
+- Researched, built and touched ASR architecture
+- Ready for production ASR post-processing deployment
+
+week 4:
+- Created two global RIK datasets, separating them by train,eval,test, cleaned 15gb in total. Configured and uploaded Hellenic Greek Dataset.
+- Used Scribe from elevenlabs to create transcriptions for datasets
+- Finetuned lighteternal-wac2vec2-asr model and jonathas-wac2vec2-asr model on hellenic greek dataset

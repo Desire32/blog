@@ -1,0 +1,50 @@
+My Second Research Project: How I Taught a Small LLM Big Cultural Stories
+-----------------------------
+The Mission
+Time to reveal the challenge we set for ourselves in this new research project!
+Our team was building a virtual museum based on Cyber-Physical-Social Systems (CPSS) — a complex architecture that merges the physical world, the digital space, and social interactions into one seamless system. Picture this: a real TurtleBot2 robot roaming a physical lab, VR headset users exploring virtual exhibits of Cypriot cultural heritage, and the system generating context-aware exhibit information in real time. Sounds like science fiction? Well, it’s not — it’s real.
+The problem? The LLM sometimes hallucinated — producing factually inaccurate or outright fictional information about cultural artifacts. When it comes to cultural heritage, accuracy is non-negotiable. No one wants a virtual tour guide telling tall tales about ancient Cypriot temples.
+
+So, we decided to compare two approaches:
+Baseline Mistral 7B (pre-trained, out-of-the-box)
+Our custom fine-tuned version using LoRA, trained specifically on Cypriot cultural heritage data.
+
+Our goal: see how much fine-tuning improves performance across five criteria — factual accuracy, contextual relevance, safety, human alignment, and formatting quality.
+------------------------------
+From RAG to QLoRA
+This project was a continuation of my first research adventure — only this time we moved away from the RAG approach and dove deep into fine-tuning with QLoRA. We also wanted human feedback to play a role in evaluating the results.
+Why small models? Our aim was to work with SLMs (Small Language Models) for easy deployment in production, minimal infrastructure requirements, and the ability to run them in VR environments without heavy backend dependencies. In short — a lightweight assistant that could hold meaningful, domain-specific conversations without constant retrieval from an external knowledge base.
+Machine learning is my kind of playground — a purely applied field where building a working model means breaking a dozen others along the way, spending hours troubleshooting, and learning why certain optimizers work better, how to speed things up, and why the learning rate can make or break your model. This project was my crash course in all of that.
+
+Inside the QLoRA Pipeline
+Our LoRA setup was split into two main classes, working together like an assembly line:
+
+- LLMLoaderPipeline — The prep room.
+
+- Loads the model with quantization (BitsAndBytesConfig compressing from 16-bit to 8-bit for QLoRA).
+
+- Reads and chunks text data into paragraphs.
+
+- Tokenizes them, and neatly sets pad_token = eos_token to avoid padding headaches with custom models.
+
+- LoraTrainerPipeline — The heart of the operation.
+
+- Prepares the base model for k-bit training.
+
+- Applies LoRA adapters (rank 8, a sweet spot between speed and accuracy).
+
+- Targets q_proj and v_proj modules in the attention mechanism for optimal results.
+
+- Alpha = 42 for LoRA weight influence, dropout = 0.05 for regularization.
+
+- Finally, merge_and_unload() fuses adapters with the base model, producing a self-contained final model.
+
+We tested different candidates — TinyLlama, Mistral, Phi, and LLaMA — and found the last three worked best for our needs. TinyLlama, as always, was our guinea pig for quick pipeline validation thanks to its small parameter count.
+-----------------------------------
+The Clock Was Ticking
+I did make an attempt to write a custom RAG pipeline using cosine similarity, but we scrapped that idea — we had less than a month for the entire project, and your humble servant Nikita was responsible for all of it.
+And yes… in case you’re wondering, lightning struck twice: the paper was accepted. Twice now I’ve walked the tightrope of deadlines, hallucination-free LLMs, and last-minute architecture tweaks — and twice it’s paid off.
+-----------------------------------
+Epilogue
+There’s a unique thrill in taking a small model, feeding it the soul of a culture, and watching it tell big, accurate stories. This wasn’t just a technical challenge — it was about trust. Trust that a lightweight AI could carry the weight of history without dropping it. Trust in my own ability to pull it off under pressure. And trust from my team, who let me run with an idea and turn it into something real.
+Sometimes research is about writing perfect code. Sometimes it’s about knowing when to drop an idea and move on. And sometimes, it’s about holding your breath, sending your work out into the world, and hoping it speaks as clearly to others as it did to you.

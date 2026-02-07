@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="../css/global.css" />
+    <link rel="stylesheet" type="text/css" href="../css/addit.css" />
+    <link rel="stylesheet" type="text/css" href="../css/tags.css" />
+
+  </head>
+  <body>
+    <header class="header-main">
+      <div class="header-inner">
+        <div class="header-main-logo">
+          <div class="header-main-name"></div>
+        </div>
+        <nav class="header-main-nav" aria-label="Главная навигация">
+          <ul class="logoList">
+            <li><a href="../index.html">Main</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+
+    <main>
+      <div class="container">
+        <article class="post">
+          <header class="post-header">
+            <h1 class="post-title">RIF Internship :: Building the first in the world Cypriot ASR Model</h1>
+            <div class="tag-widget" aria-label="Keywords">
+              <ul class="tag-list" role="list">
+                <li><a class="tag">asr</a></li>
+                <li><a class="tag">kenlm</a></li>
+                <li><a class="tag">mlm</a></li>
+                <li><a class="tag">pandas</a></li>
+              </ul>
+            </div>
+          </header>
+        </article>
+         <img class="post-image image-fixed" src="../notes/asr/images/asr.png">
+      <div class="post-content">
+            <section class="post-section intro">
+              <h2>Intro</h2>
+             <p>In this post, I’ll try to walk you through — in as much detail as possible — the product we built as a team in our startup, <strong>Abasis AI</strong>.</p>
+
+            <p>Special thanks goes to <strong>RIF</strong>, who gave us the opportunity to join their program and gain unforgettable experience.</p>
+            <p>Platform link: <a href="https://voiceofcyprus.org/">Voice of Cyprus</a></p>
+            <p>Model link: <a href="https://huggingface.co/spaces/Elormiden/Wav2vec2_Cypriot_ASR">Representation</a></p>
+
+            <p>Our team was small but focused:</p>
+            <p>
+            — <strong>Nikita Markov</strong> (me) — responsible for building the ASR model,<br>
+            — <strong>Hussein Khadra</strong> — responsible for the platform,<br>
+            — <strong>Igor Akimov</strong> — the originator of the idea.
+            </p>
+
+            <p>So, what was this project actually about? Oh boy, there’s <strong>A LOT</strong> to tell. 
+              The general idea was to create a <strong>Cypriot audio platform</strong> — basically a system built on chunks of recorded Cypriot Greek dialect. Users could visit the website and voluntarily help us transcribe this data. Why? Because as I mentioned in the title, we were <em>pioneers</em>: there were no ASR models or datasets available for Cypriot dialects. Our goal was to empower the community and crowdsource dataset creation. 
+              This was crucial, because our <strong>biggest problem</strong> was simple: there were no clean, usable datasets to train an ASR model. With the support of people, we wanted to create them ourselves.
+              When it came to the ASR model itself, the initial idea was to create a <strong>commercial system for the parliament</strong>, capable of listening to Cypriot Greek and producing transcripts in real time.
+              There was also a <strong>second commercial plan</strong>: a Cypriot voice-based <strong>auto-responder for restaurants</strong>. The vision was that customers could order food at home — without speaking to a human. (Yes, the introvert’s dream!)</p>
+
+            <p>The project was short but intense. We had:</p>
+            <p>
+            — <strong>6 weeks total</strong>,<br>
+            — roughly <strong>40 working days</strong>,<br>
+            — and on my side of the table, about <strong>190 hours</strong> of hands-on work.
+            </p>
+
+      </div>
+
+      <div class="post-content">
+            <section class="post-section intro">
+              <h2>The Learning Curve</h2>
+              <p>When I first started this internship, I had no idea what ASR systems were or how they worked. The only background I carried with me was some experience in NLP. In the first weeks, I didn’t even know what WER or CER meant — yet by the end of the final week, I was presenting a fully trained ASR model built on data I had cleaned and sorted, enhanced with KenLM for language modeling, and producing results comparable to ElevenLabs — but free. Along the way, before even discovering KenLM, I managed to build a masked language model trained on a Cypriot dictionary. <strong>Intrigued?</strong> Let me give you a quick summary of the journey before diving into a detailed breakdown later.</p>
+              <p>Yes, I studied all the basics, dug through metrics like WER and CER, built dictionaries, cleaned gigabytes of audio, and fine-tuned different ASR models — but I won’t burden you with every detail of that learning curve. Instead, let’s skip the boring parts and jump straight into what really matters: the architecture we ended up building.</p>
+              <p>Before I could deliver the results I was aiming for, I broke the ASR model three separate times, each time convinced that “this is it, it’s finally going to work.” In parallel, while experimenting with MLM, I trained a BERT model — starting with the bright idea of choosing a multilingual version instead of a language-specific one (because, hey, if it knows many languages, it must be better, right?). Later I even tried to train the MLM model to talk with me, not to predict sentenses — oh God, forgive me for that mistake. The lesson? <strong>Trust the process, and don’t be afraid to break things and make mistakes along the way.</strong></p>
+      </div>
+      <div class="post-content">
+            <section class="post-section intro">
+              <h2>MLM</h2>
+              <section class="info-card" aria-labelledby="mlm-title">
+                  <p class="info-card-text">
+                    A masked language model is trained to predict missing words in a sentence. During training, some tokens are hidden (replaced with a special mask symbol), and the model learns to infer them using the surrounding context on both sides.
+                    Imagine giving a friend a sentence with blanks, like a fill-in-the-blank puzzle in a magazine. They look at the words before and after the blank to figure out the missing piece.
+                  </p>
+              </section>
+              <p>It all began in the very first week. We were, frankly speaking, sitting there with nothing to work with, wondering: how do we even start this process? The first thought was obvious — we need a dataset. But where could we get one? At that early stage, none of us really knew how things were supposed to be done, so we decided to take the simplest route: we bought a Cypriot dialect dictionary from a library and photocopied it. After cleaning and normalizing this data, we finally had our very first piece of Cypriot material! But then came the real question: what do we actually do with it?</p>
+              <p>That’s when we stumbled upon an interesting idea from Amazon’s research paper <a href="https://arxiv.org/abs/2202.01094" target="_blank">RescoreBERT: Discriminative Speech Recognition Rescoring with BERT</a>. The paper described a filter built using a pre-trained MLM (Masked Language Model), which could help rescore and filter the outputs of ASR systems. Since the responsibility of building models was entirely on me, I decided to dive into this rabbit hole. In the end, I actually managed to produce a reasonably functional MLM model — which is now publicly available for <a href="https://huggingface.co/Elormiden/bert-base-cypriot-greek">anyone</a>.</p>
+              <img class="post-image image-fixed" style="height: 600px;" src="../notes/asr/images/mlm_finetuning.png">
+              <p>To be honest, this wasn’t something strictly necessary for the project, more of a personal initiative. After all, it would be a shame to waste a 30,000-pair Cypriot dictionary. But progress was slow: by the end of week three I had something working, though half of my available time was already gone. In the end, we had to make a sober decision and drop the idea of merging these two approaches — we simply weren’t at that level yet.</p>
+              <p>You can probably imagine our reaction when I later stumbled, completely by accident, upon <strong>KenLM</strong> — a simple but powerful n-gram based tool, exactly what we had been searching for. I spent four days studying and implementing it, and soon the entire Cypriot dialect was converted into matrices and fed into the ASR system. (Spoiler: adding KenLM into the architecture gave us a measurable boost, reducing WER by 7%. That alone made me more than happy!)</p>
+
+            </section>
+      </div>
+      <div class="post-content">
+            <section class="post-section intro">
+              <h2>ASR architecture</h2>
+              <p>At the very beginning, during the first week, I was given a simple but essential task: to “find the vector,” so to speak. In practice, this meant testing different ASR models in a dry run to see how well they handled the Greek dialect out of the box. This is where <strong>MLflow</strong> turned out to be a lifesaver — by attaching tracking and swapping models with each run, I could keep everything consistent and comparable.</p>
+              <p>The evaluation was done using <strong>jiwer</strong> metrics, focusing on WER and CER. The lineup included models from major companies: <strong>ElevenLabs</strong>, <strong>Whisper</strong>, <strong>Wav2Vec2</strong> (in several architectures <em>[to be described later]</em>), <strong>Deepgram</strong>, <strong>AssemblyAI</strong>, <strong>Speechmatics</strong>, <strong>OpenAI</strong>, and <strong>Google (Gemini)</strong>.</p>
+              <p>From the very beginning, our favorite was <strong>Scribe by ElevenLabs</strong>, and we stuck with it until we had a working ASR of our own. Among the free models available on Hugging Face, we focused primarily on <strong>Whisper</strong> and <strong>Wav2Vec2</strong>. Their architectural differences are worth explaining in detail <em>[section coming later]</em>, but already at this stage we could see their relative strengths and weaknesses.</p>
+            </section>
+      </div>
+      <div class="post-content">
+            <section class="post-section intro">
+              <h2>Final Approach: Wav2Vec2 VS Whisper</h2>
+              <p>The reason we ultimately chose wav2vec2 over whisper is because of how these two systems handle incoming audio chunks:</p>
+              <img class="post-image image-fixed" src="../notes/asr/images/seq2seq.png">
+               <section class="info-card" aria-labelledby="mlm-title">
+                  <p class="info-card-text">
+                    A seq2seq model is a type of neural network architecture designed to transform one sequence into another. It consists of an encoder, which reads and compresses the input sequence into a hidden representation, and a decoder, which unfolds this representation into the output sequence. <br>
+                    Imagine you’re at the UN, and someone says “Bonjour le monde” in French. A seq2seq model listens to the whole sentence (encoder), digests its meaning, and then retells it in English as “Hello world” (decoder).
+                  </p>
+              </section>
+              <img class="post-image image-fixed" src="../notes/asr/images/ctc_note.png">
+               <section class="info-card" aria-labelledby="mlm-title">
+                  <p class="info-card-text">
+                    CTC is a training and decoding method used in speech recognition and sequence modeling when the input length (e.g., audio frames) and output length (e.g., text) don’t match. Instead of forcing a strict alignment, CTC allows the model to predict at each time step either a symbol (like a letter) or a special “blank” token, and then collapses repeats and blanks to form the final sequence. <br>
+                    Imagine someone slowly says the word “cat” as “c… aaa… tttt”. <br>
+                    After collapsing blanks and duplicates, CTC produces: “cat”.
+                  </p>
+              </section>
+              <p>Our initial idea was to build a model for the needs of a restaurant, communicating with people in real time, so we couldn’t afford to wait while Whisper took its time to transcribe speech and respond (it would have turned into a very funny scene). <br>
+                  Also, during trials and testing of different models and architectures, we found out that Whisper is simply a giant when it comes to eating up RAM — we just couldn’t afford to use it. <br>
+                  Yes, Wav2Vec2 requires more tuning, but it’s cheap to run (Whisper’s 30 seconds input — memory just explodes; we didn’t get a chance to try lazy loading, so I can’t say for sure).</p>
+                  <img class="post-image image-fixed" style="height: 600px;" src="../notes/asr/images/asr_finetuning.png">
+                  <p>Links to the used material: <br>
+                    <a href="https://huggingface.co/datasets/Elormiden/RIK_Cypriot_News_Dataset">https://huggingface.co/datasets/Elormiden/RIK_Cypriot_News_Dataset</a><br>
+                    <a href="https://huggingface.co/datasets/Elormiden/RIK_Cypriot_Collection_Dataset">https://huggingface.co/datasets/Elormiden/RIK_Cypriot_Collection_Dataset</a><br>
+                    <a href="https://huggingface.co/datasets/Elormiden/Thesaurus-Cypriot-Greek-Dialect">https://huggingface.co/datasets/Elormiden/Thesaurus-Cypriot-Greek-Dialect</a>
+                  </p>
+              </section>
+      </div>
+      <div class="post-content">
+            <section class="post-section intro">
+              <h2>KenLM Enhancement</h2>
+              <section class="info-card" aria-labelledby="mlm-title">
+                  <p class="info-card-text">
+                    KenLM is a fast and memory-efficient toolkit for building and querying n-gram language models. <br>
+                    It is widely used in speech recognition to rescore hypotheses during beam search, guiding the system toward more likely word sequences. <br>
+                    Typically, models up to 3–5 grams are used to balance accuracy with computational cost.
+                    Detailed description of the tool: <a href="https://kheafield.com/code/kenlm/">https://kheafield.com/code/kenlm/</a>
+                  </p>
+              </section>
+              <p>It worked as follows: 30,000 pairs of Cypriot dialect from a scanned book, plus 17,000 pairs from the collection dataset and 42,000 pairs from the news dataset — these were used for fine-tuning the ASR model. So why not also include them in the .klm? This produced a huge amount of text, and the maximum possible number of n-grams was used (6 if i'm not mistaken).</p>
+              <p>Examples of the model with/without KenLM:</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                     <img class="post-image image-fixed" style="height: 600px;" src="../notes/asr/images/with_kenlm.png">
+                     <img class="post-image image-fixed" style="height: 600px;" src="../notes/asr/images/without_kenlm.png">
+              </div>
+              <img class="post-image image-fixed" style="height: 600px;" src="../notes/asr/images/asr_full_process.png">
+              </section>
+      </div>
+      </div>
+    </main>
+
+    <footer id="footer">
+      <div class="foot-inner">
+        <div>Email: <a href="mailto:nikitamarkov.work@gmail.com" style="color:var(--accent)">nikitamarkov.work@gmail.com</a></div>
+      </div>
+    </footer>
+  </body>
+</html>

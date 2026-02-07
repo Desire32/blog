@@ -1,0 +1,81 @@
+/* was used for post-1 if anything*/
+
+
+/* Reusable info-card (used for download block and all notes) */
+.info-card {
+  --card-border: color-mix(in oklab, var(--accent) 20%, transparent);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 5px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.15);
+  margin: 24px 0;
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.info-card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.info-card-text {
+  margin: 10px 0 0;
+  opacity: .9;
+}
+
+/* Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  /* background: var(--accent, #6c5ce7); */
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+
+/* Unified image sizing */
+.post-image {
+  width: auto;
+  margin: auto;
+  display: block;
+  border-radius: 0;
+  user-select: none;
+}
+
+/* Make all content images visually the same size */
+.image-fixed {
+  height: 320px;               /* adjust once globally to tune all images together */
+  object-fit: cover;           /* crop edges while preserving aspect */
+  object-position: center;     /* center crop */
+}
+
+/* Spacing harmony between sections and info-cards */
+.post-section .info-card { margin-top: 18px; }
+.info-card + .post-image,
+.post-image + .info-card { margin-top: 16px; }
+
+/* Optional: nicer post header spacing */
+.post-header .post-title { margin-bottom: .25rem; }
+.post-meta { opacity: .8; }
+.post-dot { padding: 0 .35rem; }
